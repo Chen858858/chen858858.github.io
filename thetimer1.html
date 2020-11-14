@@ -1,3 +1,4 @@
+
 <!DOCTYPE HTML>
 <!-- created 9 december 2019 -->
 <!-- last modified 14 november 2020 -->
@@ -41,6 +42,9 @@
 	}
 	.tbtn.reset{
 		background: #ff8800;
+	}
+	.tbtn.pause{
+		background: #8e44ad;
 	}
 	#set-time-box{
 		font-size: 30pt;
@@ -125,22 +129,29 @@
 <script>
 	var timerOn = false;
 	var startTime = 0;
-	var endTime = 1;
+	var endTime = 0;
 	var hours72 = 0;
+	var timerPaused = false;
+	var timerPausedStart = 0;
 	function loadSite(){
 		document.querySelector("#silenceBtn").disabled = true;
 		document.querySelector("#silenceBtn").addEventListener("click", stopSound);
 	}
 	function go(e){
 		timerOn = true;
+		timerPaused = false;
 		startTime = Date.now();
 		endTime = Date.now() + hours72;
 		document.querySelector("#playBtn").disabled = true;
+		document.querySelector("#pauseBtn").disabled = false;
 		runTimer();
 	}
 	function runTimer(){
 		var nowTimeElapsed = Date.now() - startTime;
-		if(nowTimeElapsed <= hours72){
+		if(timerPaused){
+			setTimeout(runTimer, parseInt(document.querySelector("#intervalIn").value));
+		}
+		else if(nowTimeElapsed <= hours72){
 			var timeRem = hours72 - nowTimeElapsed;
 			var hourRem = Math.floor(timeRem / (60 * 60 * 1000));
 			timeRem -= hourRem * 60 * 60 * 1000;
@@ -165,6 +176,7 @@
 			timerOn = false;
 			document.querySelector("#silenceBtn").disabled = false;
 			document.querySelector("#resetBtn").disabled = false;
+			document.querySelector("#pauseBtn").disabled = true;
 			document.querySelector(".timer-box").style.animation = "alertAni 3000ms infinite";
 			document.querySelector(".timer-box").style.animationPlayState = "running";
 			document.querySelector("#prog-per").innerHTML = "0.00%&ensp;";
@@ -210,9 +222,26 @@
 		document.querySelector("#silenceBtn").disabled = true;
 		document.querySelector(".timer-box").style.animation = "";
 		document.querySelector("#resetBtn").disabled = true;
+		document.querySelector("#pauseBtn").disabled = true;
+		document.querySelector("#pauseBtn").innerHTML = "Pause";
 		document.querySelector("#timer-prog").style.width = 1 * 900 + "px";
 		document.querySelector("#prog-per").innerHTML = (100).toFixed(parseInt(document.querySelector("#precisionIn").value)) + "%&ensp;";
 		setTime();
+	}
+	function pauseTime(){
+		if(!timerPaused){
+			timerPaused = true;
+			timerPausedStart = Date.now();
+			document.querySelector("#resetBtn").disabled = false;
+			document.querySelector("#pauseBtn").innerHTML = "Resume";
+		}
+		else{
+			startTime += Date.now() - timerPausedStart;
+			endTime += Date.now() - timerPausedStart;
+			document.querySelector("#resetBtn").disabled = true;
+			document.querySelector("#pauseBtn").innerHTML = "Pause";
+			timerPaused = false;
+		}
 	}
 	window.addEventListener('beforeunload', (event) => {
 		if(timerOn == true) event.returnValue = "The timer is running. Are you sure you want to leave?";
@@ -231,7 +260,7 @@
 <div class="timer-box"><span id="timer-num">__:__:__<small>:___</small></span></div><div class="timer-progress-long"><div class="timer-progress" id="timer-prog"><span id="prog-per">100.00%&ensp;</span></div></div>
 <div class="height: 1px;">&nbsp;</div>
 <button class="tbtn play" id="playBtn" onclick="go();" disabled>Play</button> <button class="tbtn silence" id="silenceBtn">Silence</button>
-<button class="tbtn reset" id="resetBtn" onclick="resetTime();" disabled>Reset</button>
+<button class="tbtn reset" id="resetBtn" onclick="resetTime();" disabled>Reset</button> <button class="tbtn pause" id="pauseBtn" onclick="pauseTime();" disabled>Pause</button>
 <div style="height: 5px;">&ensp;</div>
 <select class="interval-in" id="intervalIn">
 	<option>10000</option>
