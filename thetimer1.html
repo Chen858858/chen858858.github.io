@@ -1,0 +1,265 @@
+<!DOCTYPE HTML>
+<!-- created 9 december 2019 -->
+<!-- last modified 14 november 2020 -->
+<html>
+<head>
+<title>The Timer</title>
+<style>
+	body{
+		font-family: Arial;
+		font-size: 16pt;
+	}
+	.timer-box{
+		width: 895px;
+		padding: 10px 0px 0px 0px;
+		font-family: Arial;
+		font-size: 75pt;
+	}
+	.timer-box small{
+		font-size: 50pt;
+	}
+	.tbtn{
+		width: 220px;
+		border-radius: 5px;
+		padding: 2px;
+		font-family: Arial;
+		font-size: 30pt;
+		color: #ffffff;
+		outline: none;
+	}
+	.tbtn:disabled{
+		opacity: 0.2;
+	}
+	.tbtn.play{
+		background: #00aa00;
+	}
+	.tbtn.silence{
+		background: #0000ff;
+	}
+	.tbtn.set{
+		background: #800800;
+	}
+	.tbtn.reset{
+		background: #ff8800;
+	}
+	#set-time-box{
+		font-size: 30pt;
+	}
+	#set-time-box small{
+		font-size: 20pt;
+	}
+	.interval-in{
+		width: 170px;
+		border-radius: 5px;
+		padding: 2px;
+		font-family: Arial;
+		font-size: 30pt;
+		color: #000000;
+		outline: none;
+	}
+	.precision-in{
+		width: 80px;
+		border-radius: 5px;
+		padding: 2px;
+		font-family: Arial;
+		font-size: 30pt;
+		color: #000000;
+		outline: none;
+	}
+	.timer-progress{
+		background: #ffaa00;
+		width: 900px;
+		height: 8px;
+		border-radius: 5px;
+		text-align: right;
+		font-family: Courier New, monospace;
+		font-size: 6pt;
+	}
+	.timer-progress-long{
+		background: #808080;
+		width: 900px;
+		height: 8px;
+		border-radius: 5px;
+	}
+	.time-in{
+		width: 80px;
+		border-radius: 5px;
+		padding: 2px;
+		font-family: Arial;
+		font-size: 30pt;
+		color: #000000;
+		outline: none;
+	}
+	.time-in.small{
+		width: 80px;
+		border-radius: 5px;
+		padding: 2px;
+		font-family: Arial;
+		font-size: 20pt;
+		color: #000000;
+		outline: none;
+	}
+	#prog-per{
+		height: 8px;
+		background: #ff8c00;
+		border: 2px solid #ff8c00;
+		border-radius: 5px;
+		border-top: 0;
+		font-size: 8pt;
+	}
+	@keyframes alertAni{
+		0%{
+			background: #ffffff;
+			color: #000000;
+		}
+		50%{
+			background: #ff0000;
+			color: #ffffff;
+		}
+		99%{
+			background: #ffffff;
+			color: #000000;
+		}
+	}
+</style>
+<script>
+	var timerOn = false;
+	var startTime = 0;
+	var endTime = 1;
+	var hours72 = 0;
+	function loadSite(){
+		document.querySelector("#silenceBtn").disabled = true;
+		document.querySelector("#silenceBtn").addEventListener("click", stopSound);
+	}
+	function go(e){
+		timerOn = true;
+		startTime = Date.now();
+		endTime = Date.now() + hours72;
+		document.querySelector("#playBtn").disabled = true;
+		runTimer();
+	}
+	function runTimer(){
+		var nowTimeElapsed = Date.now() - startTime;
+		if(nowTimeElapsed <= hours72){
+			var timeRem = hours72 - nowTimeElapsed;
+			var hourRem = Math.floor(timeRem / (60 * 60 * 1000));
+			timeRem -= hourRem * 60 * 60 * 1000;
+			hourRem = hourRem > 9 ? hourRem : "0" + hourRem;
+			var minRem = Math.floor(timeRem / (60 * 1000));
+			timeRem -= minRem * 60 * 1000;
+			minRem = minRem > 9 ? minRem : "0" + minRem;
+			var secRem = Math.floor(timeRem / (1000));
+			secRem = secRem > 9 ? secRem : "0" + secRem;
+			timeRem -= secRem * 1000;
+			var msRem = timeRem;
+			if(msRem < 100) msRem = "0" + msRem;
+			if(parseInt(msRem) < 10) msRem = "0" + msRem;
+			document.querySelector("#timer-num").innerHTML = hourRem + ":" + minRem + ":" + secRem + "<small>:" + msRem + "</small>";
+			document.title = hourRem + ":" + minRem + ":" + secRem + ":" + msRem;
+			document.querySelector("#timer-prog").style.width = (1 - (nowTimeElapsed / hours72)) * 900 + "px";
+			document.querySelector("#prog-per").innerHTML = (100 * (1 - nowTimeElapsed / hours72)).toFixed(parseInt(document.querySelector("#precisionIn").value)) + "%&ensp;";
+			setTimeout(runTimer, parseInt(document.querySelector("#intervalIn").value));
+		}
+		else{
+			document.querySelector("#timer-prog").style.width = "0";
+			timerOn = false;
+			document.querySelector("#silenceBtn").disabled = false;
+			document.querySelector("#resetBtn").disabled = false;
+			document.querySelector(".timer-box").style.animation = "alertAni 3000ms infinite";
+			document.querySelector(".timer-box").style.animationPlayState = "running";
+			document.querySelector("#prog-per").innerHTML = "0.00%&ensp;";
+			document.querySelector("#timer-num").innerHTML = "00:00:00<small>:000";
+			document.title = "Timer finished";
+			document.querySelector("#alarmAudio").play();
+		}
+	}
+	function stopSound(){
+		document.querySelector("#alarmAudio").pause();
+		document.querySelector("#silenceBtn").disabled = true;
+	}
+	function setTime(){
+		document.querySelector("#set-time-box").style.display = "none";
+		if(isNaN(document.querySelector("#inHour").value) || document.querySelector("#inHour").value == "") document.querySelector("#inHour").value = "0";
+		if(isNaN(document.querySelector("#inMin").value) || document.querySelector("#inMin").value == "") document.querySelector("#inMin").value = "0";
+		if(isNaN(document.querySelector("#inSec").value) || document.querySelector("#inSec").value == "") document.querySelector("#inSec").value = "0";
+		if(isNaN(document.querySelector("#inMs").value) || document.querySelector("#inMs").value == "") document.querySelector("#inMs").value = "0";
+		if(document.querySelector("#inHour").value < 0) document.querySelector("#inHour").value = "0";
+		if(document.querySelector("#inMin").value < 0) document.querySelector("#inMin").value = "0";
+		if(document.querySelector("#inMin").value > 59) document.querySelector("#inMin").value = "59";
+		if(document.querySelector("#inSec").value < 0) document.querySelector("#inSec").value = "0";
+		if(document.querySelector("#inSec").value > 59) document.querySelector("#inSec").value = "59";
+		if(document.querySelector("#inMs").value < 0) document.querySelector("#inMs").value = "0";
+		if(document.querySelector("#inMs").value > 999) document.querySelector("#inMs").value = "999";
+		var hours = document.querySelector("#inHour").value > 9 ? parseInt(document.querySelector("#inHour").value) : "0" + parseInt(document.querySelector("#inHour").value);
+		var mins = document.querySelector("#inMin").value > 9 ? parseInt(document.querySelector("#inMin").value) : "0" + parseInt(document.querySelector("#inMin").value);
+		var secs = document.querySelector("#inSec").value > 9 ? parseInt(document.querySelector("#inSec").value) : "0" + parseInt(document.querySelector("#inSec").value);
+		var mss = parseInt(document.querySelector("#inMs").value);
+		if(mss < 100) mss = "0" + mss;
+		if(parseInt(mss) < 10) mss = "0" + mss;
+		document.querySelector("#timer-num").innerHTML = hours + ":" + mins + ":" + secs + "<small>:" + mss + "</small>";
+		document.title = hours + ":" + mins + ":" + secs + ":" + mss;
+		document.querySelector("#timer-time-set").innerHTML = "Time set for " + hours + ":" + mins + ":" + secs + "<small>:" + mss + "</small> .";
+		document.querySelector("#timer-time-set").style.display = "block";
+		hours72 = 0;
+		hours72 = hours * 60 * 60 * 1000 + mins * 60 * 1000 + secs * 1000 + mss * 1;
+		document.querySelector("#playBtn").disabled = false;
+	}
+	function resetTime(){
+		document.querySelector("#alarmAudio").pause();
+		document.querySelector("#alarmAudio").currentTime = 0;
+		document.querySelector("#silenceBtn").disabled = true;
+		document.querySelector(".timer-box").style.animation = "";
+		document.querySelector("#resetBtn").disabled = true;
+		document.querySelector("#timer-prog").style.width = 1 * 900 + "px";
+		document.querySelector("#prog-per").innerHTML = (100).toFixed(parseInt(document.querySelector("#precisionIn").value)) + "%&ensp;";
+		setTime();
+	}
+	window.addEventListener('beforeunload', (event) => {
+		if(timerOn == true) event.returnValue = "The timer is running. Are you sure you want to leave?";
+	});
+</script>
+</head>
+<body onload="loadSite();">
+<div id="set-time-box">
+<input type="number" min="0" class="time-in" id="inHour" value="00"> :
+<input type="number" min="0" max="59" class="time-in" id="inMin" value="00"> :
+<input type="number" min="0" max="59" class="time-in" id="inSec" value="00"> <small>:
+<input type="number" min="0" max="999" class="time-in small" id="inMs" value="000"></small>
+ <button class="tbtn set" onclick="setTime();">Set Time</button>
+<div style="height: 5px;">&ensp;</div>
+</div>
+<div class="timer-box"><span id="timer-num">00:00:00<small>:000</small></span></div><div class="timer-progress-long"><div class="timer-progress" id="timer-prog"><span id="prog-per">100.00%&ensp;</span></div></div>
+<div class="height: 1px;">&nbsp;</div>
+<button class="tbtn play" id="playBtn" onclick="go();" disabled>Play</button> <button class="tbtn silence" id="silenceBtn">Silence</button>
+<button class="tbtn reset" id="resetBtn" onclick="resetTime();" disabled>Reset</button>
+<div style="height: 5px;">&ensp;</div>
+<select class="interval-in" id="intervalIn">
+	<option>10000</option>
+	<option>7500</option>
+	<option>5000</option>
+	<option>2500</option>
+	<option>1000</option>
+	<option selected>500</option>
+	<option>250</option>
+	<option>100</option>
+	<option>50</option>
+	<option>25</option>
+	<option>10</option>
+</select>
+ms. update&ensp;
+<select class="precision-in" id="precisionIn">
+	<option>10</option>
+	<option>8</option>
+	<option>5</option>
+	<option>4</option>
+	<option>3</option>
+	<option selected>2</option>
+	<option>1</option>
+	<option>0</option>
+</select>
+% decimal precision
+<div style="height: 5px;">&ensp;</div>
+<div id="timer-time-set"></div>
+<audio id="alarmAudio" loop><source src="72hoursalarm-groove.ogg"></audio>
+</body>
+</html>
