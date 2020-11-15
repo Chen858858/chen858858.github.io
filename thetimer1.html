@@ -1,4 +1,3 @@
-
 <!DOCTYPE HTML>
 <!-- created 9 december 2019 -->
 <!-- last modified 14 november 2020 -->
@@ -226,6 +225,7 @@
 		document.querySelector("#pauseBtn").innerHTML = "Pause";
 		document.querySelector("#timer-prog").style.width = 1 * 900 + "px";
 		document.querySelector("#prog-per").innerHTML = (100).toFixed(parseInt(document.querySelector("#precisionIn").value)) + "%&ensp;";
+		timerOn = false;
 		setTime();
 	}
 	function pauseTime(){
