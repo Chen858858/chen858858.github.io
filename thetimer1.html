@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <!-- created 9 december 2019 -->
-<!-- last modified 14 november 2020 -->
+<!-- last modified 23 november 2020 -->
 <html>
 <head>
 <title>The Timer</title>
@@ -132,6 +132,8 @@
 	var hours72 = 0;
 	var timerPaused = false;
 	var timerPausedStart = 0;
+	var mlsUdt = 500;
+	var dcmPcs = 2;
 	function loadSite(){
 		document.querySelector("#silenceBtn").disabled = true;
 		document.querySelector("#silenceBtn").addEventListener("click", stopSound);
@@ -167,8 +169,8 @@
 			document.querySelector("#timer-num").innerHTML = hourRem + ":" + minRem + ":" + secRem + "<small>:" + msRem + "</small>";
 			document.title = hourRem + ":" + minRem + ":" + secRem + ":" + msRem;
 			document.querySelector("#timer-prog").style.width = (1 - (nowTimeElapsed / hours72)) * 900 + "px";
-			document.querySelector("#prog-per").innerHTML = (100 * (1 - nowTimeElapsed / hours72)).toFixed(parseInt(document.querySelector("#precisionIn").value)) + "%&ensp;";
-			setTimeout(runTimer, parseInt(document.querySelector("#intervalIn").value));
+			document.querySelector("#prog-per").innerHTML = (100 * (1 - nowTimeElapsed / hours72)).toFixed(dcmPcs) + "%&ensp;";
+			setTimeout(runTimer, mlsUdt);
 		}
 		else{
 			document.querySelector("#timer-prog").style.width = "0";
@@ -224,7 +226,7 @@
 		document.querySelector("#pauseBtn").disabled = true;
 		document.querySelector("#pauseBtn").innerHTML = "Pause";
 		document.querySelector("#timer-prog").style.width = 1 * 900 + "px";
-		document.querySelector("#prog-per").innerHTML = (100).toFixed(parseInt(document.querySelector("#precisionIn").value)) + "%&ensp;";
+		document.querySelector("#prog-per").innerHTML = (100).toFixed(dcmPcs) + "%&ensp;";
 		timerOn = false;
 		setTime();
 	}
@@ -246,6 +248,12 @@
 	window.addEventListener('beforeunload', (event) => {
 		if(timerOn == true) event.returnValue = "The timer is running. Are you sure you want to leave?";
 	});
+	function updateMlsUdt(newMls){
+		mlsUdt = newMls;
+	}
+	function updateDcmPcs(newPcs){
+		dcmPcs = newPcs;
+	}
 </script>
 </head>
 <body onload="loadSite();">
@@ -262,7 +270,7 @@
 <button class="tbtn play" id="playBtn" onclick="go();" disabled>Play</button> <button class="tbtn silence" id="silenceBtn">Silence</button>
 <button class="tbtn reset" id="resetBtn" onclick="resetTime();" disabled>Reset</button> <button class="tbtn pause" id="pauseBtn" onclick="pauseTime();" disabled>Pause</button>
 <div style="height: 5px;">&ensp;</div>
-<select class="interval-in" id="intervalIn">
+<select class="interval-in" id="intervalIn" onchange="updateMlsUdt(this.value);">
 	<option>10000</option>
 	<option>7500</option>
 	<option>5000</option>
@@ -276,7 +284,7 @@
 	<option>10</option>
 </select>
 ms. update&ensp;
-<select class="precision-in" id="precisionIn">
+<select class="precision-in" id="precisionIn" onchange="updateDcmPcs(this.value);">
 	<option>10</option>
 	<option>8</option>
 	<option>5</option>
@@ -286,7 +294,7 @@ ms. update&ensp;
 	<option>1</option>
 	<option>0</option>
 </select>
-% decimal precision
+decimal places precision for %
 <div style="height: 5px;">&ensp;</div>
 <div id="timer-time-set"></div>
 <audio id="alarmAudio" loop><source src="72hoursalarm-groove.ogg"></audio>
