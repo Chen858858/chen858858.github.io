@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <!-- created 9 december 2019 -->
-<!-- last modified 23 november 2020 -->
+<!-- last modified 10 december 2020 -->
 <html>
 <head>
 <title>The Timer</title>
@@ -268,7 +268,7 @@
 <div class="timer-box"><span id="timer-num">__:__:__<small>:___</small></span></div><div class="timer-progress-long"><div class="timer-progress" id="timer-prog"><span id="prog-per">100.00%&ensp;</span></div></div>
 <div class="height: 1px;">&nbsp;</div>
 <button class="tbtn play" id="playBtn" onclick="go();" disabled>Play</button> <button class="tbtn silence" id="silenceBtn">Silence</button>
-<button class="tbtn reset" id="resetBtn" onclick="resetTime();" disabled>Reset</button> <button class="tbtn pause" id="pauseBtn" onclick="pauseTime();" disabled>Pause</button>
+<button class="tbtn pause" id="pauseBtn" onclick="pauseTime();" disabled>Pause</button> <button class="tbtn reset" id="resetBtn" onclick="resetTime();" disabled>Reset</button>
 <div style="height: 5px;">&ensp;</div>
 <select class="interval-in" id="intervalIn" onchange="updateMlsUdt(this.value);">
 	<option>10000</option>
@@ -298,6 +298,7 @@ decimal places precision for %
 <div style="height: 5px;">&ensp;</div>
 <div id="timer-time-set"></div>
 <audio id="alarmAudio" loop><source src="72hoursalarm-groove.ogg"></audio>
-The source for the alarm sound is forgotten (I will try to find it.)
+The source for the alarm sound is forgotten (I will try to find it.)<br><br>
+<a href="/">&larr; back to homepage</a>
 </body>
 </html>
