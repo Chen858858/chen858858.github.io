@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <!-- created 9 december 2019 -->
-<!-- last modified 10 december 2020 -->
+<!-- last modified 13 january 2020 -->
 <html>
 <head>
 <title>The Timer</title>
@@ -44,6 +44,9 @@
 	}
 	.tbtn.pause{
 		background: #8e44ad;
+	}
+	.tbtn.stnm{
+		background: #909090;
 	}
 	#set-time-box{
 		font-size: 30pt;
@@ -94,13 +97,7 @@
 		outline: none;
 	}
 	.time-in.small{
-		width: 80px;
-		border-radius: 5px;
-		padding: 2px;
-		font-family: Arial;
 		font-size: 20pt;
-		color: #000000;
-		outline: none;
 	}
 	#prog-per{
 		height: 8px;
@@ -254,9 +251,16 @@
 	function updateDcmPcs(newPcs){
 		dcmPcs = newPcs;
 	}
+	function setName(){
+		document.querySelector("#time-name-box").innerHTML = document.querySelector("#inName").value;
+	}
 </script>
 </head>
 <body onload="loadSite();">
+<div id="time-name-box" style="font-size: 30pt;font-weight: bold;">
+<input type="text" class="time-in" id="inName" placeholder="Timer name" style="width: 300px;"> <button class="tbtn stnm" onclick="setName();">Set Name</button>
+</div>
+<br>
 <div id="set-time-box">
 <input type="number" min="0" class="time-in" id="inHour" value="00"> :
 <input type="number" min="0" max="59" class="time-in" id="inMin" value="00"> :
