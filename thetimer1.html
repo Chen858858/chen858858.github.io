@@ -298,7 +298,8 @@ ms. update&ensp;
 	<option>1</option>
 	<option>0</option>
 </select>
-decimal places precision for %
+decimal places precision for %<br>
+Alarm volume = <input type="range" min="0" max="1" step="0.1" onchange="document.querySelector('#alarmAudio').volume = this.value;document.querySelector('#volumeDisplay').innerHTML = this.value * 100 + '%';" value="1"> <span id="volumeDisplay">100%</span>
 <div style="height: 5px;">&ensp;</div>
 <div id="timer-time-set"></div>
 <audio id="alarmAudio" loop><source src="72hoursalarm-groove.ogg"></audio>
