@@ -7,19 +7,49 @@
     font-family: Roboto Mono, monospace;
     font-size: 16pt;
   }
-  .info{
-    
+  .info-box{
+	background: #00aa00;
+    border: 3px solid black;
+	color: white;
+	display: none;
+	margin: 3px;
+	width: 400px;
   }
-  a.open-info:link, a.open-info:visited{
-     background: blue;
-     border: 1px solid black;
+  .open-info {
+     background: #0000ff;
+     border: 3px solid #000000;
+     color: white;
+     text-decoration: none;
+  }
+  .close-info {
+     background: #ff0000;
+     border: 3px solid #000000;
      color: white;
      text-decoration: none;
   }
 </style>
+<script>
+function triggerInfo(bId, iId, open){
+	if(open){
+		console.log("nali");
+		document.querySelector(iId).style.display = "none";
+		document.querySelector(bId).className = "open-info";
+		document.querySelector(bId).innerHTML = "&ensp;+&ensp;";
+		document.querySelector(bId).onclick = function() {triggerInfo(bId, iId, false);}
+	}
+	else{
+		console.log("naqui");
+		document.querySelector(iId).style.display = "block";
+		document.querySelector(bId).className = "close-info";
+		document.querySelector(bId).innerHTML = "&ensp;&times;&ensp;";
+		document.querySelector(bId).onclick = function() {triggerInfo(bId, iId, true);}
+	}
+}
+</script>
 </head>
 <body>
 <h1>my stuff</h1>
-  <a href="/thetimer1.html">the timer</a> <a onclick="" data-box="TheTimer" class="open-info">&ensp;+&ensp;</a>
+	<a href="/thetimer1.html">the timer</a> <a id="buttonTheTimer" href="javascript:;" class="open-info" onclick="triggerInfo('#buttonTheTimer', '#infoTheTimer', false);">&ensp;+&ensp;</a>
+	<div id="infoTheTimer" class="info-box">Timer where one can set a time with hours, minutes, and seconds. The timer may be paused and reset.</div>
 </body>
 </html>
