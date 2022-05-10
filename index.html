@@ -10,14 +10,16 @@
   .info{
     
   }
-  .open-info{
-     background: red;
+  a.open-info:link, a.open-info:visited{
+     background: blue;
      border: 1px solid black;
+     color: white;
+     text-decoration: none;
   }
 </style>
 </head>
 <body>
 <h1>my stuff</h1>
-  <a href="/thetimer1.html">the timer</a> <a onclick="" class="open-info">+</a>
+  <a href="/thetimer1.html">the timer</a> <a onclick="" data-box="TheTimer" class="open-info">&ensp;+&ensp;</a>
 </body>
 </html>
