@@ -12,19 +12,21 @@
     border: 3px solid black;
 	color: white;
 	display: none;
-	margin: 3px;
-	width: 400px;
+	margin: 9px;
+	width: 500px;
   }
   .open-info {
      background: #0000ff;
      border: 3px solid #000000;
      color: white;
+	 padding: 5px;
      text-decoration: none;
   }
   .close-info {
      background: #ff0000;
      border: 3px solid #000000;
      color: white;
+	 padding: 5px;
      text-decoration: none;
   }
 </style>
@@ -49,7 +51,8 @@ function triggerInfo(bId, iId, open){
 </head>
 <body>
 <h1>my stuff</h1>
-	<a href="/thetimer1.html">the timer</a> <a id="buttonTheTimer" href="javascript:;" class="open-info" onclick="triggerInfo('#buttonTheTimer', '#infoTheTimer', false);">&ensp;+&ensp;</a>
-	<div id="infoTheTimer" class="info-box">Timer where one can set a time with hours, minutes, and seconds. The timer may be paused and reset.</div>
+	<a id="buttonTheTimer" href="javascript:;" class="open-info" onclick="triggerInfo('#buttonTheTimer', '#infoTheTimer', false);">&ensp;+&ensp;</a>
+	<a href="/thetimer1.html" target="_blank">the timer</a>
+	<div id="infoTheTimer" class="info-box">Timer where one can set a time with hours, minutes, and seconds. The timer may be paused and reset.<br>Originally created December 2019<br>Not being updated</div>
 </body>
 </html>
