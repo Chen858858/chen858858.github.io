@@ -12,22 +12,25 @@
     border: 3px solid black;
 	color: white;
 	display: none;
-	margin: 9px;
+	margin: 9px 0;
+	padding: 5px;
 	width: 500px;
   }
   .open-info {
-     background: #0000ff;
-     border: 3px solid #000000;
-     color: white;
-	 padding: 5px;
-     text-decoration: none;
+    background: #0000ff;
+    border: 3px solid #000000;
+	border-radius: 50%; 
+    color: white;
+	padding: 5px;
+    text-decoration: none;
   }
   .close-info {
-     background: #ff0000;
-     border: 3px solid #000000;
-     color: white;
-	 padding: 5px;
-     text-decoration: none;
+    background: #ff0000;
+    border: 3px solid #000000;
+	border-radius: 50%; 
+    color: white;
+	padding: 5px;
+    text-decoration: none;
   }
 </style>
 <script>
@@ -51,8 +54,17 @@ function triggerInfo(bId, iId, open){
 </head>
 <body>
 <h1>my stuff</h1>
+
+<div style="margin-bottom: 16px;">
 	<a id="buttonTheTimer" href="javascript:;" class="open-info" onclick="triggerInfo('#buttonTheTimer', '#infoTheTimer', false);">&ensp;+&ensp;</a>
 	<a href="/thetimer1.html" target="_blank">the timer</a>
 	<div id="infoTheTimer" class="info-box">Timer where one can set a time with hours, minutes, and seconds. The timer may be paused and reset.<br>Originally created December 2019<br>Not being updated</div>
+</div>
+
+<div style="margin-bottom: 16px;">	
+	<a id="buttonSongQuotesGenerator" href="javascript:;" class="open-info" onclick="triggerInfo('#buttonSongQuotesGenerator', '#infoSongQuotesGenerator', false);">&ensp;+&ensp;</a>
+	<a href="/" target="_blank">songs quotes generator</a>
+	<div id="infoSongQuotesGenerator" class="info-box">Generates quotes from the songs of the 1970s, 1980s, and a few from the 1990s.<br>Originally created October 2019.<br>Occasionally being updated.</div>	
+</div>
 </body>
 </html>
