@@ -1,262 +1,262 @@
 <!DOCTYPE HTML>
 <html>
 <!--
-Created 4 October 2019
+	Created 4 October 2019
 -->
 <link href="https://fonts.googleapis.com/css?family=Viga&display=swap" rel="stylesheet">
 <head>
-<style>
-body{
-scroll-behavior: smooth;
-font-family: Arial;
-font-size: 24pt;
-}
-#game-table{
-margin: 0 auto;
-border-right: 100px solid #3030ff;
-border-left: 100px solid #3030ff;
-border-collapse: collapse;
-}
-#game-table td{
-width: 50px;
-height: 35px;
-background: #e74c3c;
-cursor: pointer;
-}
-#start-game, #start-over, #same-board, #new-game{
-font-size: 24pt;
-outline: none;
-cursor: pointer;
-}
-#start-game{
-padding: 5px;
-background: linear-gradient(#ff0000, #aa0000);
-border: 0;
-color: yellow;
-}
-#start-game:active{
-background: linear-gradient(#aa0000, #ff0000);
-}
-#start-game-div{
-position: fixed;
-top: 0;
-right: 0;
-bottom: 0;
-left: 0;
-padding-top: 12%;
-background-image: radial-gradient(red, yellow 80%);
-text-align: center;
-}
-#close-end-50, #close-end-90{
-position: fixed;
-top: 5%;
-left: 25%;
-background: #0000aa;
-color: #ffffff;
-display: none;
-cursor: pointer;
-}
-#show-lives{
-width: 25%;
-background: yellow;
-padding: 5px;
-color: red;
-display: none;
-}
-</style>
-<script>
-var tableArr = [];
-var rowIds = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O"];
-var colIds = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T"];
-var pathIds = [];
-var openedPathIds = [];
-var openedLavaIds = [];
-var lives = 12;
-var prevTableHtml = "";
-
-function genTable(){
-// console.log(tableArr);
-pathIds = [];
-openedPathIds = [];
-openedLavaIds = [];
-lives = 12;
-document.getElementById("show-lives").style.display = "inline-block";
-document.getElementById("show-lives").innerHTML = "Lives: 12";
-document.getElementById("congrats").style.display = "none";
-var tableHtml = "";
-for(var rowN = 0; rowN < 15; rowN++){
-var thisRowId = rowIds[rowN];
-var addTableHtml = "<tr>";
-for(var colN = 0; colN < 20; colN++){
-var thisColId = colIds[colN];
-addTableHtml += "<td id=\"" + thisColId + thisRowId + "\" onclick=\"checkBox('" + thisColId + thisRowId + "');\" style=\"border: 1px solid #000000;\"> </td>";
-}
-addTableHtml += "</tr>";
-tableHtml += addTableHtml;
-}
-document.getElementById("game-table").innerHTML = tableHtml;
-genPath();
-}
-
-function genPath(){
-var firBoxId = "A" + rowIds[Math.floor(Math.random() * (rowIds.length - 1) + 0)];
-// alert(firBoxId);
-pathIds.push(firBoxId);
-document.getElementById(firBoxId).style.background="#3030ff";
-document.getElementById(firBoxId).style.border="1px solid #3030ff";
-openedPathIds.push(firBoxId);
-var secBoxId = "B" + firBoxId.substring(1,2);
-pathIds.push(secBoxId);
-// document.getElementById(secBoxId).style.background="#ff00ff";
-var nextBoxId = "";
-while(pathIds[pathIds.length - 1].substring(0,1) != 'T'){
-nextBoxId = "";
-// var dirN = -1;
-var goOn = true;
-while(goOn == true){
-var dirN = Math.floor(Math.random() * 4 + 0);
-// console.log("dirN>" + dirN);
-var colL = "";
-var rowL = "";
-if(dirN == 0){
-colL = String.fromCharCode(pathIds[pathIds.length - 1].charCodeAt(0) + parseInt(1));
-rowL = String.fromCharCode(pathIds[pathIds.length - 1].charCodeAt(1));
-nextBoxId = colL + rowL;
-}
-if(dirN == 1 || dirN == 3){
-colL = String.fromCharCode(pathIds[pathIds.length - 1].charCodeAt(0));
-rowL = String.fromCharCode(pathIds[pathIds.length - 1].charCodeAt(1) + parseInt(1));
-nextBoxId = colL + rowL;
-}
-if(dirN == 2 || dirN == 4){
-colL = String.fromCharCode(pathIds[pathIds.length - 1].charCodeAt(0));
-rowL =String.fromCharCode(pathIds[pathIds.length - 1].charCodeAt(1) - parseInt(1));
-nextBoxId = colL + rowL;
-}
-// console.log(colL + "<colL rowL>" + rowL);
-if(valBox(nextBoxId, dirN)) goOn = false;
-}
-// document.getElementById(nextBoxId).style.background="#ff00ff";
-pathIds.push(nextBoxId);
-}
-document.getElementById(pathIds[pathIds.length - 1]).style.background="#3030ff";
-document.getElementById(pathIds[pathIds.length - 1]).style.border="1px solid #3030ff";
-openedPathIds.push(pathIds[pathIds.length - 1]);
-}
-
-function valBox(nextBoxId, dirN){
-if(nextBoxId.substring(0,1) > 'T' || nextBoxId.substring(0,1) < 'A') return false;
-else if (nextBoxId.substring(1,2) > 'O' || nextBoxId.substring(1,2) < 'A') return false;
-else{
-if(pathIds.includes(nextBoxId)) return false;
-else{
-var colN = nextBoxId.charCodeAt(0);
-var rowN = nextBoxId.charCodeAt(1);
-// console.log(colN + "<colN rowN>" + rowN);
-if(dirN != 0 && pathIds.includes(String.fromCharCode(colN - 1) + String.fromCharCode(rowN))){
-// console.log("false");
-return false;
-}
-//if(pathIds.includes(String.fromCharCode(colN - 1) + String.fromCharCode(rowN - 1))) return false;
-//if(dirN == 1 && pathIds.includes(String.fromCharCode(colN - 1) + String.fromCharCode(rowN - 1))) return false;
-else return true;
-}
-}
-
-}
-
-function checkBox(boxId){
-// console.log("boxId>"+boxId);
-// console.log(pathIds);
-if(!pathIds.includes(boxId) && lives == 0){
-prevTableHtml = document.getElementById("game-table").innerHTML;
-openedLavaIds.push(boxId);
-document.getElementById("close-end-50").style.display="none";
-document.getElementById("close-end-90").style.display="none";
-document.getElementById("game-table").innerHTML = "Sorry, game over. <button id=\"start-over\" onclick=\"resetGame();\">New board</button>&ensp;&nbsp;<button id=\"same-board\" onclick=\"resetBoard();\">Same board</button>";
-}
-else if(!pathIds.includes(boxId)){
-// document.getElementById(boxId).style.background="#e25822";
-document.getElementById(boxId).style.border="1px solid #e25822";
-openedLavaIds.push(boxId);
-// document.getElementById(boxId).style.backgroundImage="url(\"fdevil.png\")";
-// document.getElementById(boxId).style.backgroundSize="contain";
-document.getElementById(boxId).style.background="repeating-radial-gradient(red, yellow 30%)";
-// document.getElementById(boxId).className += "lava";
-document.getElementById(boxId).setAttribute("onclick", "");
-lives--;
-document.getElementById("show-lives").innerHTML = "Lives: " + lives;
-}
-else if(!openedPathIds.includes(boxId)){
-document.getElementById(boxId).style.background="#3030ff";
-document.getElementById(boxId).style.border="1px solid #3030ff";
-openedPathIds.push(boxId);
-if(Math.floor(pathIds.length * 1 / 2) == openedPathIds.length){
-lives += 3;
-document.getElementById("close-end-50").style.display="block";
-document.getElementById("close-end-90").style.display="none";
-document.getElementById("show-lives").innerHTML = "Lives: " + lives;
-}
-else if(Math.floor(pathIds.length * .9) == openedPathIds.length){
-lives += 2;
-document.getElementById("close-end-90").style.display="block";
-document.getElementById("close-end-50").style.display="none";
-document.getElementById("show-lives").innerHTML = "Lives: " + lives;
-}
-checkFinished();
-}
-}
-
-
-function checkFinished(){
-if(openedPathIds.length == pathIds.length){
-// console.log("congrats");
-document.getElementById("close-end-90").style.display="none";
-document.getElementById("congrats").style.display="block";
-document.body.scrollTop = document.documentElement.scrollTop = 0;
-for(var r = 0; r < 15; r++)
-for(var c = 0; c < 20; c++)
-document.getElementById(colIds[c] + rowIds[r]).setAttribute("onclick", "");
-}
-}
-
-function resetGame(){
-pathIds = [];
-openedPathIds = [];
-lives = 12;
-genTable();
-}
-
-function resetBoard(){
-openedPathIds = [];
-openedPathIds.push(pathIds[0]);
-openedPathIds.push(pathIds[pathIds.length - 1]);
-document.getElementById("game-table").innerHTML = prevTableHtml;
-// alert(prevTableHtml);
-for(var j=1; j<pathIds.length - 1; j++){
-document.getElementById(pathIds[j]).style.background="#e74c3c";
-document.getElementById(pathIds[j]).style.border="1px solid #000000";
-}
-for(var h=0; h<openedLavaIds.length; h++){
-document.getElementById(openedLavaIds[h]).style.background="#e74c3c";
-document.getElementById(openedLavaIds[h]).style.border="1px solid #000000";
-document.getElementById(openedLavaIds[h]).setAttribute("onclick", "checkBox('" + openedLavaIds[h] + "')");
-}
-lives = 12;
-document.getElementById("show-lives").innerHTML = "Lives: 12";
-}
-</script>
+	<style>
+		body{
+			scroll-behavior: smooth;
+			font-family: Arial;
+			font-size: 24pt;
+		}
+		#game-table{
+			margin: 0 auto;
+			border-right: 100px solid #3030ff;
+			border-left: 100px solid #3030ff;
+			border-collapse: collapse;
+		}
+		#game-table td{
+			width: 50px;
+			height: 35px;
+			background: #e74c3c;
+			cursor: pointer;
+		}
+		#start-game, #start-over, #same-board, #new-game{
+			font-size: 24pt;
+			outline: none;
+			cursor: pointer;
+		}
+		#start-game{
+			padding: 5px;
+			background: linear-gradient(#ff0000, #aa0000);
+			border: 0;
+			color: yellow;
+		}
+		#start-game:active{
+			background: linear-gradient(#aa0000, #ff0000);
+		}
+		#start-game-div{
+			position: fixed;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			padding-top: 12%;
+			background-image: radial-gradient(red, yellow 80%);
+			text-align: center;
+		}
+		#close-end-50, #close-end-90{
+			position: fixed;
+			top: 5%;
+			left: 25%;
+			background: #0000aa;
+			color: #ffffff;
+			display: none;
+			cursor: pointer;
+		}
+		#show-lives{
+			width: 25%;
+			background: yellow;
+			padding: 5px;
+			color: red;
+			display: none;
+		}
+	</style>
+	<script>
+		var tableArr = [];
+		var rowIds = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O"];
+		var colIds = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T"];
+		var pathIds = [];
+		var openedPathIds = [];
+		var openedLavaIds = [];
+		var lives = 12;
+		var prevTableHtml = "";
+		
+		function genTable(){
+			// console.log(tableArr);
+			pathIds = [];
+			openedPathIds = [];
+			openedLavaIds = [];
+			lives = 12;
+			document.getElementById("show-lives").style.display = "inline-block";
+			document.getElementById("show-lives").innerHTML = "Lives: 12";
+			document.getElementById("congrats").style.display = "none";
+			var tableHtml = "";
+			for(var rowN = 0; rowN < 15; rowN++){
+				var thisRowId = rowIds[rowN];
+				var addTableHtml = "<tr>";
+				for(var colN = 0; colN < 20; colN++){
+					var thisColId = colIds[colN];
+					addTableHtml += "<td id=\"" + thisColId + thisRowId + "\" onclick=\"checkBox('" + thisColId + thisRowId + "');\" style=\"border: 1px solid #000000;\"> </td>";
+				}
+				addTableHtml += "</tr>";
+				tableHtml += addTableHtml;
+			}
+			document.getElementById("game-table").innerHTML = tableHtml;
+			genPath();
+		}
+		
+		function genPath(){
+			var firBoxId = "A" + rowIds[Math.floor(Math.random() * (rowIds.length - 1) + 0)];
+			// alert(firBoxId);
+			pathIds.push(firBoxId);
+			document.getElementById(firBoxId).style.background="#3030ff";
+			document.getElementById(firBoxId).style.border="1px solid #3030ff";
+			openedPathIds.push(firBoxId);
+			var secBoxId = "B" + firBoxId.substring(1,2);
+			pathIds.push(secBoxId);
+			// document.getElementById(secBoxId).style.background="#ff00ff";
+			var nextBoxId = "";
+			while(pathIds[pathIds.length - 1].substring(0,1) != 'T'){
+				nextBoxId = "";
+				// var dirN = -1;
+				var goOn = true;
+				while(goOn == true){
+					var dirN = Math.floor(Math.random() * 4 + 0);
+					// console.log("dirN>" + dirN);
+					var colL = "";
+					var rowL = "";
+					if(dirN == 0){
+						colL = String.fromCharCode(pathIds[pathIds.length - 1].charCodeAt(0) + parseInt(1));
+						rowL = String.fromCharCode(pathIds[pathIds.length - 1].charCodeAt(1));
+						nextBoxId = colL + rowL;
+					}
+					if(dirN == 1 || dirN == 3){
+						colL = String.fromCharCode(pathIds[pathIds.length - 1].charCodeAt(0));
+						rowL = String.fromCharCode(pathIds[pathIds.length - 1].charCodeAt(1) + parseInt(1));
+						nextBoxId = colL + rowL;
+					}
+					if(dirN == 2 || dirN == 4){
+						colL = String.fromCharCode(pathIds[pathIds.length - 1].charCodeAt(0));
+						rowL =String.fromCharCode(pathIds[pathIds.length - 1].charCodeAt(1) - parseInt(1));
+						nextBoxId = colL + rowL;
+					}
+					// console.log(colL + "<colL rowL>" + rowL);
+					if(valBox(nextBoxId, dirN)) goOn = false;
+				}
+				// document.getElementById(nextBoxId).style.background="#ff00ff";
+				pathIds.push(nextBoxId);
+			}
+			document.getElementById(pathIds[pathIds.length - 1]).style.background="#3030ff";
+			document.getElementById(pathIds[pathIds.length - 1]).style.border="1px solid #3030ff";
+			openedPathIds.push(pathIds[pathIds.length - 1]);
+		}
+			
+			function valBox(nextBoxId, dirN){
+				if(nextBoxId.substring(0,1) > 'T' || nextBoxId.substring(0,1) < 'A') return false;
+				else if (nextBoxId.substring(1,2) > 'O' || nextBoxId.substring(1,2) < 'A') return false;
+				else{
+					if(pathIds.includes(nextBoxId)) return false;
+					else{
+						var colN = nextBoxId.charCodeAt(0);
+						var rowN = nextBoxId.charCodeAt(1);
+						// console.log(colN + "<colN rowN>" + rowN);
+						if(dirN != 0 && pathIds.includes(String.fromCharCode(colN - 1) + String.fromCharCode(rowN))){
+							// console.log("false");
+							return false;
+						}
+						//if(pathIds.includes(String.fromCharCode(colN - 1) + String.fromCharCode(rowN - 1))) return false;
+						//if(dirN == 1 && pathIds.includes(String.fromCharCode(colN - 1) + String.fromCharCode(rowN - 1))) return false;
+						else return true;
+					}
+				}
+			
+			}
+			
+			function checkBox(boxId){
+				// console.log("boxId>"+boxId);
+				// console.log(pathIds);
+				if(!pathIds.includes(boxId) && lives == 0){
+					prevTableHtml = document.getElementById("game-table").innerHTML;
+					openedLavaIds.push(boxId);
+					document.getElementById("close-end-50").style.display="none";
+					document.getElementById("close-end-90").style.display="none";
+					document.getElementById("game-table").innerHTML = "Sorry, game over. <button id=\"start-over\" onclick=\"resetGame();\">New board</button>&ensp;&nbsp;<button id=\"same-board\" onclick=\"resetBoard();\">Same board</button>";
+				}
+				else if(!pathIds.includes(boxId)){
+					// document.getElementById(boxId).style.background="#e25822";
+					document.getElementById(boxId).style.border="1px solid #e25822";
+					openedLavaIds.push(boxId);
+					// document.getElementById(boxId).style.backgroundImage="url(\"fdevil.png\")";
+					// document.getElementById(boxId).style.backgroundSize="contain";
+					document.getElementById(boxId).style.background="repeating-radial-gradient(red, yellow 30%)";
+					// document.getElementById(boxId).className += "lava";
+					document.getElementById(boxId).setAttribute("onclick", "");
+					lives--;
+					document.getElementById("show-lives").innerHTML = "Lives: " + lives;
+				}
+				else if(!openedPathIds.includes(boxId)){
+					document.getElementById(boxId).style.background="#3030ff";
+					document.getElementById(boxId).style.border="1px solid #3030ff";
+					openedPathIds.push(boxId);
+					if(Math.floor(pathIds.length * 1 / 2) == openedPathIds.length){
+						lives += 3;
+						document.getElementById("close-end-50").style.display="block";
+						document.getElementById("close-end-90").style.display="none";
+						document.getElementById("show-lives").innerHTML = "Lives: " + lives;
+					}
+					else if(Math.floor(pathIds.length * .9) == openedPathIds.length){
+						lives += 2;
+						document.getElementById("close-end-90").style.display="block";
+						document.getElementById("close-end-50").style.display="none";
+						document.getElementById("show-lives").innerHTML = "Lives: " + lives;
+					}
+					checkFinished();
+				}
+			}
+			
+			
+			function checkFinished(){
+				if(openedPathIds.length == pathIds.length){
+					// console.log("congrats");
+					document.getElementById("close-end-90").style.display="none";
+					document.getElementById("congrats").style.display="block";
+					document.body.scrollTop = document.documentElement.scrollTop = 0;
+					for(var r = 0; r < 15; r++)
+						for(var c = 0; c < 20; c++)
+							document.getElementById(colIds[c] + rowIds[r]).setAttribute("onclick", "");
+				}
+			}
+			
+			function resetGame(){
+				pathIds = [];
+				openedPathIds = [];
+				lives = 12;
+				genTable();
+			}
+			
+			function resetBoard(){
+				openedPathIds = [];
+				openedPathIds.push(pathIds[0]);
+				openedPathIds.push(pathIds[pathIds.length - 1]);
+				document.getElementById("game-table").innerHTML = prevTableHtml;
+				// alert(prevTableHtml);
+				for(var j=1; j<pathIds.length - 1; j++){
+					document.getElementById(pathIds[j]).style.background="#e74c3c";
+					document.getElementById(pathIds[j]).style.border="1px solid #000000";
+				}				
+				for(var h=0; h<openedLavaIds.length; h++){
+					document.getElementById(openedLavaIds[h]).style.background="#e74c3c";
+					document.getElementById(openedLavaIds[h]).style.border="1px solid #000000";
+					document.getElementById(openedLavaIds[h]).setAttribute("onclick", "checkBox('" + openedLavaIds[h] + "')");
+				}
+				lives = 12;
+				document.getElementById("show-lives").innerHTML = "Lives: 12";
+			}
+	</script>
 </head>
 <body>
-<div id="start-game-div">
-<button id="start-game" onclick="document.getElementById('start-game-div').style.display='none'; genTable();"><span style="font-family: Viga;font-size: 28pt;">Start the Floor of Lava!</span><br>
-<div style="font-size: 20pt">You haves 12 lives per game.<br>(if you click this button and it freezes, please refresh)</div>
-</button>
-</div>
-<div id="congrats" style="text-align: center;font-family: Georgia; font-size: 36pt; font-style: italic; display: none;">Congratulations!<br>You crossed the floor of lava!<br><button id="new-game" onclick="genTable();">New game &rarr;</button><br><br></div>
-<span id="show-lives">Lives:</span>  <span style="background: #e74c3c">&ensp;&ensp;</span> Unopened  <span style="background: #3030ff">&ensp;&ensp;</span> Path <span style="background: repeating-radial-gradient(red, yellow 30%)">&ensp;&ensp;</span> Lava
-<table id="game-table"></table>
-<div id="close-end-50" onclick="this.style.display='none';">You're halfway there! +3 lives! (Click to close this message)</div>
-<div id="close-end-90" onclick="this.style.display='none';">You're almost there! +2 lives! (Click to close this message)</div>
+	<div id="start-game-div">
+		<button id="start-game" onclick="document.getElementById('start-game-div').style.display='none'; genTable();"><span style="font-family: Viga;font-size: 28pt;">Start the Floor of Lava!</span><br>
+			<div style="font-size: 20pt">You haves 12 lives per game.<br>(if you click this button and it freezes, please refresh)</div>
+		</button>
+	</div>
+	<div id="congrats" style="text-align: center;font-family: Georgia; font-size: 36pt; font-style: italic; display: none;">Congratulations!<br>You crossed the floor of lava!<br><button id="new-game" onclick="genTable();">New game &rarr;</button><br><br></div>
+	<span id="show-lives">Lives:</span>  <span style="background: #e74c3c">&ensp;&ensp;</span> Unopened  <span style="background: #3030ff">&ensp;&ensp;</span> Path <span style="background: repeating-radial-gradient(red, yellow 30%)">&ensp;&ensp;</span> Lava
+	<table id="game-table"></table>
+	<div id="close-end-50" onclick="this.style.display='none';">You're halfway there! +3 lives! (Click to close this message)</div>
+	<div id="close-end-90" onclick="this.style.display='none';">You're almost there! +2 lives! (Click to close this message)</div>
 </body>
 </html>
