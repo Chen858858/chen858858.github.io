@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css?family=Heebo:300&display=swap" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- by Chen Wang 1 October 2019-->
+<style>
+body{
+font-family: Heebo, Arial;
+font-size: 36pt;
+}
+div.colour-set{
+text-align:center;
+}
+input{
+width: 200px;
+padding: 5px;
+font-family: Heebo, Arial;
+font-size: 28pt;
+border: 1px solid rgb(200,200,200);
+border-radius: 5px;
+text-align: right;
+transition: 300ms linear;
+}
+input:hover, input:focus{
+box-shadow: 0px 0px 5px 2px #5555ff;
+}
+div.flex-cont{
+display: flex;
+}
+</style>
+<script>
+$(document).ready(function() {
+$("#binIn").val("000000000");
+$("#decIn").val("0");
+$("#hexIn").val("0");
+
+$("#binIn").keyup(function(){
+var binVal = $("#binIn").val();
+var decVal = binTOdec(binVal);
+$("#decIn").val(decVal);
+var hexVal = decTOhex(decVal);
+$("#hexIn").val(hexVal);
+});
+
+$("#decIn").keyup(function(){
+var decVal = $("#decIn").val();
+var binVal = decTObin(decVal);
+$("#binIn").val(binVal);
+var hexVal = decTOhex(decVal);
+$("#hexIn").val(hexVal);
+});
+
+
+$("#hexIn").keyup(function(){
+var hexVal = $("#hexIn").val();
+var decVal = hexTOdec(hexVal);
+$("#decIn").val(decVal);
+var binVal = decTObin(decVal);
+$("#binIn").val(binVal);
+});
+
+function binTOdec(binValue){
+binValue = binValue.split("").reverse().join("");
+var decValue = 0;
+var mulNum = 1;
+for(var y=0; y<binValue.length; y++){
+decValue += (binValue[y] == 1) ? mulNum : 0;
+mulNum *= 2;
+}
+return decValue;
+}
+
+function decTOhex(decValue){
+var hexValue = "";
+// var pow16 = 0;
+if(decValue == 0) hexValue = "0";
+while(decValue > 0){
+var decPartValue = decValue % 16;
+switch(decPartValue){
+case 0: hexValue = hexValue + "0"; break;
+case 1: hexValue = hexValue + "1"; break;
+case 2: hexValue = hexValue + "2"; break;
+case 3: hexValue = hexValue + "3"; break;
+case 4: hexValue = hexValue + "4"; break;
+case 5: hexValue = hexValue + "5"; break;
+case 6: hexValue = hexValue + "6"; break;
+case 7: hexValue = hexValue + "7"; break;
+case 8: hexValue = hexValue + "8"; break;
+case 9: hexValue = hexValue + "9"; break;
+case 10: hexValue = hexValue + "a"; break;
+case 11: hexValue = hexValue + "b"; break;
+case 12: hexValue = hexValue + "c"; break;
+case 13: hexValue = hexValue + "d"; break;
+case 14: hexValue = hexValue + "e"; break;
+case 15: hexValue = hexValue + "f"; break;
+}
+decValue = Math.floor(decValue / 16);
+//console.log(decValue);
+}
+hexValue = hexValue.split("").reverse().join("");
+return hexValue;
+}
+
+function decTObin(decValue){
+var binValue = "";
+while(decValue > 0){
+var decPartValue = decValue % 2;
+binValue = decPartValue + binValue;
+decValue = Math.floor(decValue / 2);
+//console.log(decValue);
+}
+return binValue;
+}
+
+function hexTOdec(hexValue){
+hexValue = hexValue.split("").reverse().join("");
+var binValue = 0;
+var decValue = 0;
+var mult = 1;
+var letInd = 0;
+while(letInd < hexValue.length){
+var currChar = hexValue[letInd];
+var charVal = 0;
+switch(currChar){
+case "0": charVal =  0; break;
+case "1": charVal =  1; break;
+case "2": charVal =  2; break;
+case "3": charVal =  3; break;
+case "4": charVal =  4; break;
+case "5": charVal =  5; break;
+case "6": charVal =  6; break;
+case "7": charVal =  7; break;
+case "8": charVal =  8; break;
+case "9": charVal =  9; break;
+case "a": charVal =  10; break;
+case "b": charVal =  11; break;
+case "c": charVal =  12; break;
+case "d": charVal =  13; break;
+case "e": charVal =  14; break;
+case "f": charVal =  15; break;
+}
+decValue += (charVal * mult);
+mult *= 16;
+letInd++;
+}
+
+return decValue;
+}
+
+});
+</script>
+</head>
+<body>
+<div style="height:50px;">&ensp;</div>
+<div class="colour-set">bin <input type="text" id="binIn"> | dec <input type="text" id="decIn"> | hex <input type="text" id="hexIn"></div>
+</body>
+</html>
