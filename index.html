@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Junchen Wang</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+        <style>
+            @import url("https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css");
+            
+            @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca&family=Plus+Jakarta+Sans&display=swap');
+            
+            body{
+                font-family: Plus Jakarta Sans, Arial;
+            }
+            
+            .button{
+                font-family: Plus Jakarta Sans, Arial;
+            }
+        </style>
+    </head>
+    <body>
+        <section class="hero is-info" style="background-image: url('IMG_0920.JPG'); background-position: center center; background-size: cover;">
+            <div class="hero-body" style="background: rgb(0, 0, 0, 0.4);">
+            <div class="title has-text-centered" style="font-family: Lexend Deca; font-size: 44pt;">
+                Junchen Wang
+            </div>
+            </div>
+        </section>
+        <section style="margin: 10px 10% 0 10%;" id="vue-target">
+            <div class="tabs is-large is-centered is-toggle is-toggle-rounded">
+                <ul>
+                    <li :class="{'is-active': show_about}"  @click="page_change('about');">
+                        <a><i class="fa-solid fa-info"></i>&ensp;About Me</a>
+                    </li>
+                    <li :class="{'is-active': show_projects}" @click="page_change('projects');">
+                        <a><i class="fa-solid fa-code"></i>&ensp;Projects</a>
+                    </li>
+                    <li :class="{'is-active': show_resume}"  @click="page_change('resume');">
+                        <a><i class="fa-solid fa-file-lines"></i>&ensp;Resume</a>
+                    </li>
+                    <li :class="{'is-active': show_contact}"  @click="page_change('contact');">
+                        <a><i class="fa fa-paper-plane"></i>&ensp;Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- start about section -->
+            <div style="margin-bottom: 10px;">
+                <div class="section is-size-4" v-if="show_about">
+                    <h2 class="title is-size-2">Introduction</h2>
+                    <div class="columns">
+                        <div class="column is-one-quarter">
+                            <img src="jwang.jpg" style="width: 100%;">
+                        </div>
+                        <div class="column">
+                            Hello, my name is Junchen Wang, Chen for short.
+                            I am interested in web and software development.
+                            I have a (being processed) Bachelor of Arts in Computer Science degree from UCSC.
+                            Currently looking for employment, anything that fits my skills are great.
+                            If I need more skills to meet the requirements, I'd be willing to learn them.
+                            Thank you for visiting my website!
+                        </div>
+                    </div>
+                    <br>
+                    <h2 class="title is-size-2">Education</h2>
+                    <h3 class="title is-size-3">
+                        University of California, Santa Cruz (UCSC)
+                        <div style="height: 8px; margin-top: 10px; width: 70%;">
+                            <div style="background: rgb(0, 70, 122, 1); height: 50%; width: 100%;">&nbsp;</div>
+                            <div style="background: rgb(255, 210, 0, 1); height: 50%; width: 100%;">&nbsp;</div>
+                        </div>
+                    </h3>
+                    Bachelor of Arts in Computer Science, expected graduation June 2022, being processed<br>
+                    <button class="button is-dark is-outlined is-size-5" :class="{'is-outlined': !show_ucsc_classes}" style="width: 200px;" @click="show_ucsc_classes = !show_ucsc_classes;">
+                        <span v-if="!show_ucsc_classes">Show</span><span v-else>Hide</span>&nbsp;classes
+                    </button>
+                    <table class="table is-bordered is-striped is-fullwidth" style="margin: 5px 0 0 0;" v-if="show_ucsc_classes">
+                        <tr>
+                            <td style="width: 50%;">
+                                <a href="https://courses.soe.ucsc.edu/courses/cse140" target="_blank">
+                                    Artifical Intelligence, CSE 140
+                                </a>
+                            </td>
+                            <td>
+                                <a href="https://courses.soe.ucsc.edu/courses/cse143" target="_blank">
+                                    Introduction to Natural Languages Processing, CSE 143
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="https://courses.soe.ucsc.edu/courses/cse114a" target="_blank">
+                                    Foundations of Programming Languages, CSE 114A
+                                </a>
+                            </td>
+                            <td>
+                                <a href="https://courses.soe.ucsc.edu/courses/cse30" target="_blank">
+                                    Programming Abstractions: Python, CSE 30
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="https://courses.soe.ucsc.edu/courses/cse101" target="_blank">
+                                    Introduction to Data Structures and Algorithms, CSE 101
+                                </a>
+                            </td>
+                            <td>
+                                <a href="https://courses.soe.ucsc.edu/courses/cse185s" target="_blank">
+                                    Technical Writing for Computer Science and Engineering, CSE 185S
+                                </a>
+                           </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="https://courses.soe.ucsc.edu/courses/cse102" target="_blank">
+                                    Introduction to Analysis of Algorithms, CSE 102
+                                </a>
+                            </td>
+                            <td>
+                                <a href="https://courses.soe.ucsc.edu/courses/cse183" target="blank">
+                                    Web Applications, CSE 183
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                    <br><br>
+                    <h3 class="title is-size-3">
+                        Monterey Peninsula College (MPC)
+                        <div style="height: 8px; margin-top: 10px; width: 70%;">
+                            <div style="background: rgb(134, 0, 56, 1); height: 50%; width: 100%;">&nbsp;</div>
+                            <div style="background: rgb(230, 230, 230, 1); height: 50%; width: 100%;">&nbsp;</div>
+                        </div>
+                    </h3>
+                    January 2019 to December 2019<br>
+                    <button class="button is-dark is-size-5" :class="{'is-outlined': !show_mpc_classes}" style="width: 200px;" @click="show_mpc_classes = !show_mpc_classes;">
+                        <span v-if="!show_mpc_classes">Show</span><span v-else>Hide</span>&nbsp;classes
+                    </button>
+                    <table class="table is-bordered is-striped is-fullwidth" style="margin: 5px 0 0 0;" v-if="show_mpc_classes">
+                        <tr>
+                            <td style="width: 50%;">Programming Methods I: Java, CSIS 10A</td>
+                            <td>Programming Methods I.5: C & C++, CSIS 10C</td>
+                        </tr>
+                    </table>
+                    <br><br>
+                    <h2 class="title is-size-2">Code Experience</h2>
+                    <table class="table is-bordered is-fullwidth">
+                        <tr>
+                            <th>Code</th>
+                            <th>Experience Level</th>
+                        </tr>
+                        <tr>
+                            <td style="width: 30%;">HTML</td>
+                            <td><progress class="progress is-info" style="border-radius: 0; height: 30px;" value="95" max="100"></progress></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 30%;">CSS</td>
+                            <td><progress class="progress is-info" style="border-radius: 0; height: 30px;" value="80" max="100"></progress></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 30%;">JavaScript</td>
+                            <td><progress class="progress is-info" style="border-radius: 0; height: 30px;" value="70" max="100"></progress></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 30%;">Python</td>
+                            <td><progress class="progress is-info" style="border-radius: 0; height: 30px;" value="70" max="100"></progress></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 30%;">Java</td>
+                            <td><progress class="progress is-warning" style="border-radius: 0; height: 30px;" value="55" max="100"></progress></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 30%;">C/C++</td>
+                            <td><progress class="progress is-danger" style="border-radius: 0; height: 30px;" value="30" max="100"></progress></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 30%;">Haskell</td>
+                            <td><progress class="progress is-danger" style="border-radius: 0; height: 30px;" value="5" max="100"></progress></td>
+                        </tr>
+                    </table>
+                    <h2 class="title is-size-2">Hobbies</h2>
+                    <h3 class="title is-size-3">Photography</h3>
+                    I adjust the shutterspeed, ISO, and aperture, usually taking photos of nature and scenery.
+                    Here are a few of them (click on the image to go to its page):
+                    <div class="box" style="margin-top: 5px;">
+                        <div class="columns">
+                            <div class="column" style="height: 400px;">
+                                <a :href="img_slides_src" target="_blank">
+                                    <img :src="img_slides_src" style="height: 100%;" :alt="img_slides_des">
+                                </a>
+                            </div>
+                            <div class="column">
+                                <button class="button is-dark is-outlined is-rounded is-size-6" @click="img_slides_change(-1); img_slides_autochange_on = false;"><i class="fa fa-chevron-left"></i></button>
+                                <div class="has-text-centered" style="display: inline-block; margin: 0 5px 0 5px; width: 150px;">
+                                    {{img_slides_ind + 1}}/{{img_slides_len}}<br>
+                                    <progress class="progress is-link" style="height: 3px;" :value="100 * (img_slides_ind + 1) / img_slides_len" max="100"></progress>
+                                </div>
+                                <button class="button is-dark is-rounded is-outlined is-size-6" @click="img_slides_change(1); img_slides_autochange_on = false;"><i class="fa fa-chevron-right"></i></button>
+                                <br>
+                                {{img_slides_des}}<br>
+                                {{img_slides_inf}}
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <h3 class="title is-size-3">Learning Languages (not coding ones)</h3>
+                    ES:
+                    Yo he estado aprendiendo espa&ntilde;ol durante dos a&ntilde;os, en la universidad y en Duolingo. 
+                    Mi nivel de espa&ntilde;ol es pre intermedio.<br>
+                    ZH:
+                    我在提高我的中文水平。
+                    我现在的中文水平是初级。
+                    <br>
+                    PT:
+                    Estudo portugu&ecirc;s no Duolingo.
+                    Meu n&iacute;vel de portugu&ecirc;s &eacute; inciante.
+                </div>
+            </div>
+            <!-- end about section -->
+            <!-- start projects section -->
+            <div style="margin-bottom: 10px;">
+                <div class="section" v-if="show_projects">
+                    <div class="columns is-size-4">
+                        <div class="column is-one-third">
+                            <div class="box" style="height: 100%;">
+                                <h3 class="title is-size-3">Find My Pet</h3>
+                                <a href="https://github.com/jadlow/find-my-pet" class="button is-info is-size-5" target="_blank"><i class="fa fa-code"></i>&ensp;Code</a><br>
+                                Website for owners to be reunited with their lost pets.
+                                Group project for UCSC CSE 183 class.
+                                Written in HTML, CSS (Bulma), JavaScript (Vue), and Python.
+                                Created April 2022.
+                            </div>
+                        </div>
+                        <div class="column is-one-third">
+                            <div class="box" style="height: 100%;">
+                                <h3 class="title is-size-3">Lava Floor Game</h3>
+                                <a href="https://chen858858.github.io/lavafloor.html" class="button is-success is-size-5" target="_blank"><i class="fa-solid fa-globe"></i>&ensp;Site</a>
+                                <a href="https://github.com/Chen858858/chen858858.github.io/blob/main/lavafloor.html" class="button is-info is-size-5" target="_blank"><i class="fa fa-code"></i>&ensp;Code</a>
+                                Game where the player finds the path to cross a floor of lava.
+                                Individual project.
+                                Written in HTML, CSS, and JavaScript.
+                                Created October 2019.
+                            </div>
+                        </div>
+                        <div class="column is-one-third">
+                            <div class="box" style="height: 100%;">
+                                <h3 class="title is-size-3">Song Quotes Generator</h3>
+                                <a href="https://chen858858.github.io/70s80s90ssq.html" class="button is-success is-size-5" target="_blank"><i class="fa-solid fa-globe"></i>&ensp;Site</a>
+                                <a href="https://github.com/Chen858858/chen858858.github.io/blob/main/70s80s90ssq.html" class="button is-info is-size-5" target="_blank"><i class="fa fa-code"></i>&ensp;Code</a><br>
+                                Generates quotes from the songs of the 1970s, 80s, and 90s.
+                                Individual project.
+                                Written in HTML, CSS, and JavaScript.
+                                Created October 2019.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="columns is-size-4">
+                        <div class="column is-one-third">
+                            <div class="box" style="height: 100%;">
+                                <h3 class="title is-size-3">Timer</h3>
+                                <a href="https://chen858858.github.io/thetimer1.html" class="button is-success is-size-5" target="_blank"><i class="fa-solid fa-globe"></i>&ensp;Site</a>
+                                <a href="https://github.com/Chen858858/chen858858.github.io/blob/main/thetimer1.html" class="button is-info is-size-5" target="_blank"><i class="fa fa-code"></i>&ensp;Code</a><br>
+                                Timer which counts down from a specified time.
+                                Can be paused and reset.
+                                Individual project.
+                                Written in HTML, CSS, and JavaScript.
+                                Created December 2019.
+                            </div>
+                        </div>
+                        <div class="column is-one-third">
+                            <div class="box" style="height: 100%;">
+                                <h3 class="title is-size-3">Binary-Decimal-Hex Converter</h3>
+                                <a href="https://chen858858.github.io/bindechex.html" class="button is-success is-size-5" target="_blank"><i class="fa-solid fa-globe"></i>&ensp;Site</a>
+                                <a href="https://github.com/Chen858858/chen858858.github.io/blob/main/bindechex.html" class="button is-info is-size-5" target="_blank"><i class="fa fa-code"></i>&ensp;Code</a><br>
+                                Converter between binary, decimal, and hexadecimal.
+                                Individual project.
+                                Written in HTML, CSS, and JavaScript (jQuery).
+                                Created October 2019.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end projects section -->
+            <!-- start resume section -->
+            <div style="margin-bottom: 10px;">
+                <div class="section" v-if="show_resume">
+                    <iframe style="border: 3px solid rgb(200, 200, 200, 1); border-radius: 10px; height: 600px; width: 100%;" src="resume-18062022.pdf">
+                    </iframe>
+                </div>
+            </div>
+            <!-- end resume section -->
+            <!-- start contact section -->
+            <div style="margin-bottom: 10px;">
+                <div class="section is-size-4" v-if="show_contact">
+                    <img src="nospam.png" style="height: 60px; vertical-align: -20px;">&ensp;please!<br><br>
+                    <h2 class="title is-size-2">LinkedIn</h2>
+                    <a href="https://linkedin.com/in/jchen-wang" target="_blank">
+                        linkedin.com/in/jchen-wang
+                    </a>
+                    <br><br>
+                    <h2 class="title is-size-2">Email</h2>
+                    junchenwang5@gmail.com<br>
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=junchenwang5@gmail.com" class="button is-dark is-outlined is-size-5" target="_blank">
+                        <i class="fa-brands fa-google" style="color: rgb(234, 67, 53, 1);"></i>
+                        &ensp;Email me from Gmail
+                    </a>
+                    <br><br>
+                    <h2 class="title is-size-2">Phone</h2>
+                    (831) 869-8869
+                </div>
+            </div>
+            <div class="tabs is-large is-centered is-toggle is-toggle-rounded" style="margin-bottom: 20px;">
+                <ul>
+                    <li :class="{'is-active': show_about}"  @click="page_change('about');">
+                        <a><i class="fa-solid fa-info"></i>&ensp;About Me</a>
+                    </li>
+                    <li :class="{'is-active': show_projects}" @click="page_change('projects');">
+                        <a><i class="fa-solid fa-code"></i>&ensp;Projects</a>
+                    </li>
+                    <li :class="{'is-active': show_resume}"  @click="page_change('resume');">
+                        <a><i class="fa-solid fa-file-lines"></i>&ensp;Resume</a>
+                    </li>
+                    <li :class="{'is-active': show_contact}"  @click="page_change('contact');">
+                        <a><i class="fa fa-paper-plane"></i>&ensp;Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- end contact section -->
+        </section>
+        <div class="footer is-size-4 has-text-centered">
+            This website is made with HTML, CSS (<a href="https://bulma.io/" target="_blank">Bulma</a>), and JavaScript (<a href="https://vuejs.org/" target="_blank">Vue</a>), along with <a href="https://fonts.google.com/" target="_blank">Google Fonts</a> and <a href="https://fontawesome.com/" target="_blank">Font Awesome</a>.<br>
+            Hosted on <a href="https://pages.github.com/" target="_blank">Github Pages</a>.
+        </div>
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.0-beta.2/vue.min.js"></script>
+    <script src="indexjs.js"></script>
+</html>
