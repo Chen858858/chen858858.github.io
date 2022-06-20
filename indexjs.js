@@ -129,6 +129,10 @@ let init = (app) => {
         else{
             window.location.hash = "#about";
         }
+        for(let img_ind in app.vue.img_slides_arr){
+            let new_img = new Image();
+            new_img.src = "img/" + app.vue.img_slides_arr[img_ind]["src"]
+        }
         app.vue.img_slides_len = app.vue.img_slides_arr.length;
         app.vue.img_slides_ind = Math.round(Math.random() * (app.vue.img_slides_len - 1));
         const init_img_slide = app.vue.img_slides_arr[app.vue.img_slides_ind];
