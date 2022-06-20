@@ -192,13 +192,19 @@
                                 </a>
                             </div>
                             <div class="column">
-                                <button class="button is-dark is-outlined is-rounded is-size-6" @click="img_slides_change(-1); img_slides_autochange_on = false;"><i class="fa fa-chevron-left"></i></button>
-                                <div class="has-text-centered" style="display: inline-block; margin: 0 5px 0 5px; width: 150px;">
-                                    {{img_slides_ind + 1}}/{{img_slides_len}}<br>
-                                    <progress class="progress is-primary" style="height: 3px;" :value="100 * (img_slides_ind + 1) / img_slides_len" max="100"></progress>
+                                <div class="columns">
+                                    <div class="column has-text-right">
+                                        <button class="button is-dark is-outlined is-rounded is-size-6" @click="img_slides_change(-1); img_slides_autochange_on = false;"><i class="fa fa-chevron-left"></i></button>
+                                    </div>
+                                    <div class="column has-text-centered is-one-half" style="display: inline-block; margin: 0 5px 0 5px;">
+                                        {{img_slides_ind + 1}}/{{img_slides_len}}<br>
+                                        <progress class="progress is-primary" style="height: 3px;" :value="100 * (img_slides_ind + 1) / img_slides_len" max="100"></progress>
+                                    </div>
+                                    <div class="column has-text-left">
+                                        <button class="button is-dark is-rounded is-outlined is-size-6" @click="img_slides_change(1); img_slides_autochange_on = false;"><i class="fa fa-chevron-right"></i></button>
+                                
+                                    </div>
                                 </div>
-                                <button class="button is-dark is-rounded is-outlined is-size-6" @click="img_slides_change(1); img_slides_autochange_on = false;"><i class="fa fa-chevron-right"></i></button>
-                                <br>
                                 {{img_slides_des}}<br>
                                 {{img_slides_inf}}
                             </div>
