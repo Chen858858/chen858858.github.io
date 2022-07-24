@@ -18,6 +18,15 @@
                 font-family: Plus Jakarta Sans, Arial;
             }
         </style>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-FGGEJWSGP5"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-FGGEJWSGP5');
+        </script>
     </head>
     <body>
         <!-- start header part -->
@@ -78,7 +87,7 @@
                             <div style="background: rgb(255, 210, 0, 1); height: 50%; width: 100%;">&nbsp;</div>
                         </div>
                     </h3>
-                    Bachelor of Arts in Computer Science, graduated June 2022<br>
+                    Bachelor of Arts in Computer Science, September 2018 and January 2020 to June 2022<br>
                     <button class="button is-dark is-outlined is-size-5" :class="{'is-outlined': !show_ucsc_classes}" style="width: 200px;" @click="show_ucsc_classes = !show_ucsc_classes;">
                         <span v-if="!show_ucsc_classes">Show</span><span v-else>Hide</span>&nbsp;classes
                     </button>
