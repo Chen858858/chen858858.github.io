@@ -89,6 +89,14 @@ let init = (app) => {
         app.vue.img_slides_inf = new_img_slide["inf"];
     }
 
+    app.img_slides_change_by_index = function(new_index){
+        app.vue.img_slides_ind = parseInt(new_index);
+        const new_img_slide = app.vue.img_slides_arr[app.vue.img_slides_ind];
+        app.vue.img_slides_src = new_img_slide["src"];
+        app.vue.img_slides_des = new_img_slide["des"];
+        app.vue.img_slides_inf = new_img_slide["inf"];
+    }
+
     app.img_slides_autochange = function(){
         if(!app.vue.img_slides_autochange_on){
             return 0;
@@ -104,6 +112,7 @@ let init = (app) => {
         // Complete as you see fit.
         page_change: app.page_change,
         img_slides_change: app.img_slides_change,
+        img_slides_change_by_index: app.img_slides_change_by_index,
         img_slides_autochange: app.img_slides_autochange
     };
 
@@ -130,12 +139,13 @@ let init = (app) => {
             window.location.hash = "#about";
         }
         for(let img_ind in app.vue.img_slides_arr){
-            let new_img = new Image();
-            new_img.src = "img/" + app.vue.img_slides_arr[img_ind]["src"]
+            app.vue.img_slides_arr[img_ind]["index"] = img_ind;
         }
+        console.log(app.vue.img_slides_arr);
         app.vue.img_slides_len = app.vue.img_slides_arr.length;
         app.vue.img_slides_ind = Math.round(Math.random() * (app.vue.img_slides_len - 1));
         const init_img_slide = app.vue.img_slides_arr[app.vue.img_slides_ind];
+        app.vue.img_slides_arr[app.vue.img_slides_ind]["is_current_img"] = true;
         app.vue.img_slides_src = init_img_slide["src"];
         app.vue.img_slides_des = init_img_slide["des"];
         app.vue.img_slides_inf = init_img_slide["inf"];
