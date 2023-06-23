@@ -193,50 +193,61 @@
                             <th>Skill</th>
                             <th>Proficiency Level</th>
                         </tr>
+                        <!--
+                            Experience colors
+                            76-100 = -success
+                            51-75 = -primary
+                            26-50 = -info
+                            1-25 = -warning
+                        -->
+                        <!-- 76-100 start -->
                         <tr>
                             <td style="width: 30%;">HTML</td>
-                            <td><progress class="progress is-info" style="border-radius: 0; height: 30px;" value="95" max="100"></progress></td>
+                            <td><progress class="progress is-success" style="border-radius: 0; height: 30px;" value="90" max="100"></progress></td>
                         </tr>
                         <tr>
                             <td style="width: 30%;">CSS</td>
-                            <td><progress class="progress is-info" style="border-radius: 0; height: 30px;" value="80" max="100"></progress></td>
+                            <td><progress class="progress is-success" style="border-radius: 0; height: 30px;" value="80" max="100"></progress></td>
                         </tr>
+                        <!-- 76-100 end -->
+                        <!-- 51-75 start -->
                         <tr>
                             <td style="width: 30%;">JavaScript</td>
-                            <td><progress class="progress is-info" style="border-radius: 0; height: 30px;" value="70" max="100"></progress></td>
+                            <td><progress class="progress is-primary" style="border-radius: 0; height: 30px;" value="65" max="100"></progress></td>
                         </tr>
                         <tr>
                             <td style="width: 30%;">Python</td>
-                            <td><progress class="progress is-info" style="border-radius: 0; height: 30px;" value="70" max="100"></progress></td>
+                            <td><progress class="progress is-primary" style="border-radius: 0; height: 30px;" value="65" max="100"></progress></td>
                         </tr>
-                        <tr>
-                            <td style="width: 30%;">Vue.js</td>
-                            <td><progress class="progress is-warning" style="border-radius: 0; height: 30px;" value="55" max="100"></progress></td>
-                        </tr>
+                        <!-- 51-75 end -->
+                        <!-- 26-50 start -->
                         <tr>
                             <td style="width: 30%;">Java</td>
-                            <td><progress class="progress is-warning" style="border-radius: 0; height: 30px;" value="55" max="100"></progress></td>
+                            <td><progress class="progress is-info" style="border-radius: 0; height: 30px;" value="40" max="100"></progress></td>
                         </tr>
                         <tr>
                             <td style="width: 30%;">Git</td>
-                            <td><progress class="progress is-warning" style="border-radius: 0; height: 30px;" value="50" max="100"></progress></td>
-                        </tr>
-                        <tr>
-                            <td style="width: 30%;">Bulma</td>
-                            <td><progress class="progress is-warning" style="border-radius: 0; height: 30px;" value="50" max="100"></progress></td>
+                            <td><progress class="progress is-info" style="border-radius: 0; height: 30px;" value="35" max="100"></progress></td>
                         </tr>
                         <tr>
                             <td style="width: 30%;">Django</td>
-                            <td><progress class="progress is-danger" style="border-radius: 0; height: 30px;" value="30" max="100"></progress></td>
+                            <td><progress class="progress is-info" style="border-radius: 0; height: 30px;" value="30" max="100"></progress></td>
                         </tr>
                         <tr>
+                            <td style="width: 30%;">Vue.js</td>
+                            <td><progress class="progress is-info" style="border-radius: 0; height: 30px;" value="30" max="100"></progress></td>
+                        </tr>                        
+                        <!-- 26-50 end -->
+                        <!-- 1-25 start -->
+                        <tr>
                             <td style="width: 30%;">C/C++</td>
-                            <td><progress class="progress is-danger" style="border-radius: 0; height: 30px;" value="30" max="100"></progress></td>
+                            <td><progress class="progress is-warning" style="border-radius: 0; height: 30px;" value="20" max="100"></progress></td>
                         </tr>
                         <tr>
                             <td style="width: 30%;">SQL</td>
-                            <td><progress class="progress is-danger" style="border-radius: 0; height: 30px;" value="10" max="100"></progress></td>
+                            <td><progress class="progress is-warning" style="border-radius: 0; height: 30px;" value="15" max="100"></progress></td>
                         </tr>
+                        <!-- 1-25 end -->
                     </table>
                     <h2 class="title is-size-2">Hobbies</h2>
                     <h3 class="title is-size-3">Photography</h3>
@@ -293,19 +304,19 @@
                     <div class="columns is-size-4">
                         <div class="column is-one-third">
                             <div class="box" style="height: 100%;">
+                                <h3 class="title is-size-3">CS50W Projects</h3>
+                                <a href="https://www.youtube.com/playlist?list=PLfoDYyHC9KvAABiO4bWxHdo_YvVz6HE5g" class="button is-success is-size-5" target="_blank"><i class="fa-solid fa-circle-play"></i>&ensp;Demos</a><br>
+                                Projects for edX Harvard CS50W Web Programming with Python and JavaScript.
+                                Written in HTML, CSS (Bootstrap), JavaScript, and Python with the Django framework.
+                            </div>
+                        </div>
+                        <div class="column is-one-third">
+                            <div class="box" style="height: 100%;">
                                 <h3 class="title is-size-3">Find My Pet</h3>
                                 <a href="https://github.com/jadlow/find-my-pet" class="button is-info is-size-5" target="_blank"><i class="fa fa-code"></i>&ensp;Code</a><br>
                                 UCSC CSE 183 Web Applications group project.
                                 Website for owners to be reunited with their lost pets.
                                 Written in HTML, CSS (Bulma), JavaScript (Vue.js), and Python with the py4web framework.
-                            </div>
-                        </div>
-                        <div class="column is-one-third">
-                            <div class="box" style="height: 100%;">
-                                <h3 class="title is-size-3">CS50W Projects</h3>
-                                <a href="https://www.youtube.com/playlist?list=PLfoDYyHC9KvAABiO4bWxHdo_YvVz6HE5g" class="button is-success is-size-5" target="_blank"><i class="fa-solid fa-circle-play"></i>&ensp;Demos</a><br>
-                                Projects for edX Harvard CS50W Web Programming with Python and JavaScript.
-                                Written in HTML, CSS (Bootstrap), JavaScript, and Python with the Django framework.
                             </div>
                         </div>
                         <div class="column is-one-third">
@@ -358,8 +369,8 @@
             <!-- start resume section -->
             <div style="margin-bottom: 10px;">
                 <div class="section" v-if="show_resume">
-                    <a href="doc/resume-09082022.pdf" target="_blank" class="button is-info is-size-5 is-fullwidth"><i class="fa-solid fa-file-pdf"></i>&ensp;View resume as a file</a>
-                    <iframe style="border: 3px solid rgb(200, 200, 200, 1); border-radius: 5px; height: 600px; width: 100%;" src="doc/resume-09082022.pdf">
+                    <a href="doc/resume-june-23-2023.pdf" target="_blank" class="button is-info is-size-5 is-fullwidth"><i class="fa-solid fa-file-pdf"></i>&ensp;View resume as a file</a>
+                    <iframe style="border: 3px solid rgb(200, 200, 200, 1); border-radius: 5px; height: 600px; width: 100%;" src="doc/resume-june-23-2023.pdf">
                     </iframe>
                 </div>
             </div>
