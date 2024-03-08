@@ -59,6 +59,7 @@ let init = (app) => {
     };
 
     app.page_change = function(page){
+        window.scrollTo(0, 0);
         window.location.hash = "#" + page;
         app.vue.show_projects = page == "projects";
         app.vue.show_about = page == "about";

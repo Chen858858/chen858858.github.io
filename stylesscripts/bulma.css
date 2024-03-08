@@ -11703,3 +11703,41 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   padding: 3rem 1.5rem 6rem;
 }
 /*# sourceMappingURL=bulma.css.map */
+
+/* CSS below personally added, not compiled with SASS. */
+.featured-project{
+  position: relative;
+
+  background: rgba(255, 200, 0, 0.6);
+}
+
+.featured-project > .stamp{
+  position: absolute;
+  top: -25px;
+  right: -25px;
+
+  rotate: 15deg;
+}
+
+.featured-project > .stamp > img{
+  width: 70px;
+}
+
+.top-contact-me{
+
+  background: rgb(87, 26, 87, 1);
+
+  padding: 5px;
+
+  color: rgb(255, 255, 255, 1);
+}
+
+.top-contact-me > a:link, .top-contact-me > a:visited{
+  color: rgb(255, 255, 255);
+
+  text-decoration: underline;
+}
+
+.top-contact-me > a:hover, .top-contact-me > a:active{
+  text-decoration: none;
+}

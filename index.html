@@ -54,9 +54,6 @@
     </head>
     <body>
         <!-- start header part -->
-        <section class="hero has-text-centered is-size-5" style="background: rgb(87, 26, 87, 1); color: rgb(255, 255, 255, 1); padding: 5px;">
-            Currently open to employment opportunities! Feel free to contact me about work.
-        </section>
         <section class="hero is-info" style="background-image: url('img/IMG_0920.JPG'); background-position: center center; background-size: cover;">
             <div class="hero-body" style="background: rgb(0, 0, 0, 0.4);">
             <div class="title has-text-centered" style="font-family: Lexend Deca; font-size: 44pt;">
@@ -66,6 +63,9 @@
         </section>
         <!-- end header part -->
         <section class="content" id="vue-target">
+            <section class="box has-text-centered mt-4 is-size-5 top-contact-me">
+                Currently open to employment opportunities! Feel free to <a href="javascript:;" @click="page_change('contact');" style="display: inline;">contact me</a> about work.
+            </section>
             <div class="tabs is-large is-centered is-toggle is-toggle-rounded" style="font-family: Lexend Deca;">
                 <ul>
                     <li :class="{'is-active': show_about}"  @click="page_change('about');">
@@ -182,8 +182,16 @@
                     </button>
                     <table class="table is-bordered is-striped is-fullwidth" style="margin: 5px 0 0 0;" v-if="show_mpc_classes">
                         <tr>
-                            <td style="width: 50%;">Programming Methods I: Java, CSIS 10A</td>
-                            <td>Programming Methods I.5: C & C++, CSIS 10C</td>
+                            <td style="width: 50%;">
+                                <a href="https://webreg.mpc.edu/SR_ScheduleOfClasses.aspx?Mode=text&TermID=20207&CourseDiscipline=CSIS&Course=24766" target="_blank">
+                                    Programming Methods I: Java, CSIS 10A
+                                </a>
+                            </td>
+                            <td>
+                                <a href="https://webreg.mpc.edu/SR_ScheduleOfClasses.aspx?Mode=text&TermID=20207&CourseDiscipline=CSIS&Course=24476" target="_blank">
+                                    Programming Methods I.5: C & C++, CSIS 10C
+                                </a>
+                            </td>
                         </tr>
                     </table>
                     <br><br>
@@ -253,6 +261,8 @@
                         </tr>
                         <!-- 1-25 end -->
                     </table>
+                    <h2 class="title is-size-2">Projects</h2>
+                    <a href="javascript:;" @click="page_change('projects');">To see projects I have worked on, click here.</a>  
                     <h2 class="title is-size-2">Hobbies</h2>
                     <h3 class="title is-size-3">Photography</h3>
                     Adjusting the shutterspeed, ISO, and aperture, usually taking photos of nature and scenery.
@@ -307,19 +317,26 @@
                 <div class="section" v-if="show_projects">
                     <div class="columns is-size-4">
                         <div class="column is-one-third">
-                            <div class="box" style="height:100%;">
+                            <div class="box featured-project" style="height:100%;">
                                 <h3 class="title is-size-3">New Timer</h3>
+                                <a href="the-timer-lupine" class="button is-success is-size-5" target="_blank"><i class="fa-solid fa-globe"></i>&ensp;Site</a>
                                 <a href="https://github.com/Chen858858/the-timer-lupine" class="button is-info is-size-5" target="_blank"><i class="fa fa-code"></i>&ensp;Code</a><br>
                                 Timer which allows multiple timers.
                                 Written in JavaScript (Vue.js framework), CSS (compiled by SASS .scss), and HTML.
+                                <div class="stamp">
+                                    <img src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/3429667/diamond-star-20-21-yellow-icon-md.png" alt=""> 
+                                </div>
                             </div>  
                         </div>
                         <div class="column is-one-third">
-                            <div class="box" style="height: 100%;">
+                            <div class="box featured-project" style="height: 100%;">
                                 <h3 class="title is-size-3">CS50W Projects</h3>
                                 <a href="https://www.youtube.com/playlist?list=PLfoDYyHC9KvAABiO4bWxHdo_YvVz6HE5g" class="button is-success is-size-5" target="_blank"><i class="fa-solid fa-circle-play"></i>&ensp;Demos</a><br>
                                 Projects for edX Harvard CS50W Web Programming with Python and JavaScript.
                                 Written in HTML, CSS (Bootstrap), JavaScript, and Python with the Django framework.
+                                <div class="stamp">
+                                    <img src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/3429667/diamond-star-20-21-yellow-icon-md.png" alt=""> 
+                                </div>
                             </div>
                         </div>
                         <div class="column is-one-third">
@@ -383,9 +400,10 @@
             <!-- start resume section -->
             <div style="margin-bottom: 10px;">
                 <div class="section" v-if="show_resume">
-                    <a href="doc/resume-june-23-2023.pdf" target="_blank" class="button is-info is-size-5 is-fullwidth"><i class="fa-solid fa-file-pdf"></i>&ensp;View resume as a file</a>
-                    <iframe style="border: 3px solid rgb(200, 200, 200, 1); border-radius: 5px; height: 600px; width: 100%;" src="doc/resume-june-23-2023.pdf">
+                    <a href="doc/Resume (12_08_2023 version).pdf" target="_blank" class="button is-info is-size-5 is-fullwidth"><i class="fa-solid fa-file-pdf"></i>&ensp;View resume as a file</a>
+                    <iframe style="border: 3px solid rgb(200, 200, 200, 1); border-radius: 5px; height: 600px; width: 100%;" src="doc/Resume (12_08_2023 version).pdf">
                     </iframe>
+                    <div class="block is-size-5 is-italic">Last updated December 2023.</div>  
                 </div>
             </div>
             <!-- end resume section -->
