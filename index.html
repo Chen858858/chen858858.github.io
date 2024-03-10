@@ -66,7 +66,8 @@
             <section class="box has-text-centered mt-4 is-size-5 top-contact-me">
                 Currently open to employment opportunities! Feel free to <a href="javascript:;" @click="page_change('contact');" style="display: inline;">contact me</a> about work.
             </section>
-            <div class="tabs is-large is-centered is-toggle is-toggle-rounded" style="font-family: Lexend Deca;">
+            <!-- start top navigation bars -->
+            <div class="tabs is-large is-centered is-toggle is-toggle-rounded nav-tabs" style="font-family: Lexend Deca;">
                 <ul>
                     <li :class="{'is-active': show_about}"  @click="page_change('about');">
                         <a><i class="fa-solid fa-info"></i>&ensp;About Me</a>
@@ -82,6 +83,33 @@
                     </li>
                 </ul>
             </div>
+            <nav class="panel is-size-5 nav-panel" style="display: none;">
+                <a class="panel-block" :class="{'is-active': show_about}" @click="page_change('about');">
+                    <span class="panel-icon">
+                        <i class="fas fa-info"></i>
+                    </span>
+                    About Me
+                </a>         
+                <a class="panel-block" :class="{'is-active': show_projects}" @click="page_change('projects');">
+                    <span class="panel-icon">
+                        <i class="fas fa-code"></i>
+                    </span>
+                    Projects
+                </a>         
+                <a class="panel-block" :class="{'is-active': show_resume}" @click="page_change('resume');">
+                    <span class="panel-icon">
+                        <i class="fas fa-file-lines"></i>
+                    </span>
+                    Resume
+                </a>         
+                <a class="panel-block" :class="{'is-active': show_contact}" @click="page_change('contact');">
+                    <span class="panel-icon">
+                        <i class="fas fa-paper-plane"></i>
+                    </span>
+                    Contact
+                </a>         
+            </nav>
+            <!-- end top navigation bars -->
             <!-- start about section -->
             <div style="margin-bottom: 10px;">
                 <div class="section is-size-4" v-if="show_about">
@@ -340,12 +368,15 @@
                             </div>
                         </div>
                         <div class="column is-one-third">
-                            <div class="box" style="height: 100%;">
+                            <div class="box featured-project" style="height: 100%;">
                                 <h3 class="title is-size-3">Find My Pet</h3>
                                 <a href="https://github.com/jadlow/find-my-pet" class="button is-info is-size-5" target="_blank"><i class="fa fa-code"></i>&ensp;Code</a><br>
                                 UCSC CSE 183 Web Applications group project.
                                 Website for owners to be reunited with their lost pets.
                                 Written in HTML, CSS (Bulma), JavaScript (Vue.js), and Python with the py4web framework.
+                                <div class="stamp">
+                                    <img src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/3429667/diamond-star-20-21-yellow-icon-md.png" alt=""> 
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -400,7 +431,8 @@
             <!-- start resume section -->
             <div style="margin-bottom: 10px;">
                 <div class="section" v-if="show_resume">
-                    <a href="doc/Resume (12_08_2023 version).pdf" target="_blank" class="button is-info is-size-5 is-fullwidth"><i class="fa-solid fa-file-pdf"></i>&ensp;View resume as a file</a>
+                    <a href="doc/Resume (12_08_2023 version).pdf" target="_blank" class="button is-info is-size-5 mb-3"><i class="fa-solid fa-file-pdf"></i>&ensp;View resume as a file</a>
+                    <a href="doc/Resume (12_08_2023 version).pdf" download="Junchen Wang Resume" class="button is-success is-size-5 mb-3"><i class="fa-solid fa-download"></i>&ensp;Download resume as PDF</a>
                     <iframe style="border: 3px solid rgb(200, 200, 200, 1); border-radius: 5px; height: 600px; width: 100%;" src="doc/Resume (12_08_2023 version).pdf">
                     </iframe>
                     <div class="block is-size-5 is-italic">Last updated December 2023.</div>  
@@ -427,7 +459,9 @@
                     (831) 869-8869
                 </div>
             </div>
-            <div class="tabs is-large is-centered is-toggle is-toggle-rounded" style="font-family: Lexend Deca; margin-bottom: 20px;">
+            <!-- end contact section -->
+            <!-- start bottom navigation bars -->
+            <div class="tabs is-large is-centered is-toggle is-toggle-rounded nav-tabs" style="font-family: Lexend Deca;">
                 <ul>
                     <li :class="{'is-active': show_about}"  @click="page_change('about');">
                         <a><i class="fa-solid fa-info"></i>&ensp;About Me</a>
@@ -443,7 +477,33 @@
                     </li>
                 </ul>
             </div>
-            <!-- end contact section -->
+            <nav class="panel is-size-5 nav-panel" style="display: none;">
+                <a class="panel-block" :class="{'is-active': show_about}" @click="page_change('about');">
+                    <span class="panel-icon">
+                        <i class="fas fa-info"></i>
+                    </span>
+                    About Me
+                </a>         
+                <a class="panel-block" :class="{'is-active': show_projects}" @click="page_change('projects');">
+                    <span class="panel-icon">
+                        <i class="fas fa-code"></i>
+                    </span>
+                    Projects
+                </a>         
+                <a class="panel-block" :class="{'is-active': show_resume}" @click="page_change('resume');">
+                    <span class="panel-icon">
+                        <i class="fas fa-file-lines"></i>
+                    </span>
+                    Resume
+                </a>         
+                <a class="panel-block" :class="{'is-active': show_contact}" @click="page_change('contact');">
+                    <span class="panel-icon">
+                        <i class="fas fa-paper-plane"></i>
+                    </span>
+                    Contact
+                </a>         
+            </nav>
+            <!-- end bottom navigation bars -->
         </section>
         <!-- start footer part -->
         <div class="footer is-size-4 has-text-centered">

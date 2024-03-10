@@ -11716,11 +11716,38 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   top: -25px;
   right: -25px;
 
+  width: 70px;
+
   rotate: 15deg;
+
+  animation-name: stamp-dance;
+  animation-duration: 1200ms;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  /*animation-delay: 600ms;*/
 }
 
 .featured-project > .stamp > img{
-  width: 70px;
+  width: 100%;
+}
+
+@keyframes stamp-dance{
+
+  0%{
+    width: 140px;
+
+    rotate: 15deg;
+  }
+
+  40%{
+    rotate: 375deg;
+  }
+
+  100%{
+    width: 70px;
+
+    rotate: 735deg;
+  }
 }
 
 .top-contact-me{
@@ -11740,4 +11767,24 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
 
 .top-contact-me > a:hover, .top-contact-me > a:active{
   text-decoration: none;
+}
+
+@media screen and (max-width: 1000px){
+  .nav-tabs{
+    display: none;
+  }
+
+  .nav-panel{
+    display: block !important;
+  }
+}
+
+.panel-block.is-active{
+  background-color: rgb(50, 155, 200);
+
+  color: rgb(255, 255, 255);
+}
+
+.panel-block.is-active .panel-icon {
+  color: rgb(255, 255, 255);
 }
